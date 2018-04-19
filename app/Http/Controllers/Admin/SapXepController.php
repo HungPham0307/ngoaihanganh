@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 
@@ -21,7 +20,7 @@ class SapXepController extends Controller
         $this->error = '';
         $this->matches = [];
     }
-    
+
     public function createMatches()
     {
         if (!$this->validTeamArray()) {
@@ -36,11 +35,10 @@ class SapXepController extends Controller
         $this->teams2 = array_slice($this->teams, count($this->teams) / 2);
 
         for ($i = 2; $i < (count($this->teams1) * 2); $i++) {
-
-            $this->saveMatchday();          
+            $this->saveMatchday();
             $this->rotate();
         }
-        
+
         $this->saveMatchday();
         $this->finished = true;
 
@@ -96,13 +94,13 @@ class SapXepController extends Controller
     {
         $date = Carbon::parse($startingDate);
         $sum = count($schedule);
-        $vongdau =1;
+        $vongdau = 1;
         $count = 0;
 
-        if ($this->isWeekend($date) == 0 ) {
-            $match = rand(3,7) ;
+        if ($this->isWeekend($date) == 0) {
+            $match = rand(3, 7);
 
-            for ($i=0; $i < $match; $i++) { 
+            for ($i = 0; $i < $match; $i++) {
                 $schedule[$count]['date'] = $date->format('Y-m-d');
                 $schedule[$count]['time'] = Carbon::parse($this->rand_time());
                 $schedule[$count]['vongdau'] = $vongdau;
@@ -111,35 +109,34 @@ class SapXepController extends Controller
 
             $date = Carbon::parse($date)->addDay();
 
-            for ($i=0; $i < (10-$match) ; $i++) { 
+            for ($i = 0; $i < (10 - $match); $i++) {
                 $schedule[$count]['date'] = $date->format('Y-m-d');
                 $schedule[$count]['time'] = Carbon::parse($this->rand_time());
                 $schedule[$count]['vongdau'] = $vongdau;
                 $count++;
             }
 
-            $sum = $sum-10;
+            $sum = $sum - 10;
         }
 
-        if($this->isWeekend($startingDate) == 1) {
-            for ($i=0; $i < 10; $i++) { 
+        if ($this->isWeekend($startingDate) == 1) {
+            for ($i = 0; $i < 10; $i++) {
                 $schedule[$count]['date'] = $date->format('Y-m-d');
                 $schedule[$count]['time'] = Carbon::parse($this->rand_time());
                 $schedule[$count]['vongdau'] = $vongdau;
                 $count++;
             }
 
-            $sum = $sum-10;
+            $sum = $sum - 10;
         }
-
-        while($sum >0) {
+        while ($sum > 0) {
             $date = Carbon::parse($date)->addDay();
 
-            if ($this->isWeekend($date) == 0 ) {
+            if ($this->isWeekend($date) == 0) {
                 $vongdau++;
-                $match = rand(3,7) ;
+                $match = rand(3, 7);
 
-                for ($i=0; $i < $match; $i++) { 
+                for ($i = 0; $i < $match; $i++) {
                     $schedule[$count]['date'] = $date->format('Y-m-d');
                     $schedule[$count]['time'] = Carbon::parse($this->rand_time());
                     $schedule[$count]['vongdau'] = $vongdau;
@@ -148,21 +145,22 @@ class SapXepController extends Controller
 
                 $date = Carbon::parse($date)->addDay();
 
-                for ($i=0; $i < (10-$match) ; $i++) { 
+                for ($i = 0; $i < (10 - $match); $i++) {
                     $schedule[$count]['date'] = $date->format('Y-m-d');
                     $schedule[$count]['time'] = Carbon::parse($this->rand_time());
                     $schedule[$count]['vongdau'] = $vongdau;
                     $count++;
                 }
 
-                $sum = $sum-10;
-            }          
+                $sum = $sum - 10;
+            }
         }
 
         return $schedule;
     }
 
-    public function isWeekend($date) {
+    public function isWeekend($date)
+    {
         if ((date('N', strtotime($date)) == 6)) {
             return 0;
         }
