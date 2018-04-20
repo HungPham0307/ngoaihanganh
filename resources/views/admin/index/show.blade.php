@@ -60,10 +60,10 @@
               <td style="text-align: center;">{{$count}}</td>
               <td style="text-align: center;">{{ date('l, d M, Y', strtotime($val->date)) }}</td>
               <td style="text-align: center;">{{ Carbon\Carbon::parse($val->time)->format('H:i') }} PM</td>
-              @if ($result[$val->doi_nha] == $val->sanvandong_id)
-                <td style="text-align: center;"> {{ $val->doi_nha }} vs  {{ $val->doi_khach }}</td>
+              @if ($result[$val->doinha_id] == $val->sanvandong_id)
+                <td style="text-align: center;"> {{ $val->doinha->name }} vs  {{ $val->doikhach->name }}</td>
               @else
-              <td style="text-align: center;"> {{ $val->doi_khach }} vs  {{ $val->doi_nha }}</td>
+              <td style="text-align: center;"> {{ $val->doikhach->name }} vs  {{ $val->doinha->name }}</td>
               @endif
               <td style="text-align: center;">{{ $val->sanvandong->name }}</td>
             </tr>

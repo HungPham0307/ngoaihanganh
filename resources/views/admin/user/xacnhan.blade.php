@@ -22,18 +22,17 @@
         <h1>About me</h1>
         <h4 style="margin-left: 37%; color: red;font-size: 18px;
     font-family: arial;">
-        
+
           @if(Session::has("msg"))
-                        {{Session::get("msg")}}
-                       @endif
-          
+          {{Session::get("msg")}}
+         @endif
         </h4>
       </div>
       <div class="login-box">
         <form class="login-form" action="{{route('admin.user.postConfirm',$objUser->id)}} "  method="post">
           {{csrf_field()}}
           <h3 class="login-head"><i class="fa fa-lg fa-fw fa-user"></i>Enter infomation</h3>
-        
+
           <div class="form-group">
             <label class="control-label">Code</label>
             <input class="form-control" type="number" name="xacnhan" required placeholder="Mã số">
@@ -45,7 +44,7 @@
             <button class="btn btn-primary btn-block">Check<i class="fa fa-sign-in fa-lg"></i></button>
           </div>
         </form>
-      
+
       </div>
     </section>
   </body>

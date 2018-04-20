@@ -9,7 +9,7 @@
     <!-- CSS-->
     <link rel="shortcut icon" href='{!!asset("files/premier.png")!!}' />
     <link rel="stylesheet" type="text/css" href='{!!asset("templates/admin/css/main.css")!!}'>
-    
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries-->
     <!--if lt IE 9
     script(src='https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js')
@@ -25,11 +25,11 @@
         <h1 style="text-align: center;">Premier League</h1>
         <h4 style="width: 300px; color: red;font-size: 18px;
     font-family: arial;">
-        
+
           @if(Session::has("msg"))
           {{Session::get("msg")}}
          @endif
-          
+
         </h4>
       </div>
       <div class="login-box">
@@ -47,7 +47,7 @@
           <div class="form-group">
             <div class="utility">
               <div class="animated-checkbox">
-               
+
               </div>
               <p class="semibold-text mb-0"><a data-toggle="flip">Forgot Password ?</a></p>
             </div>
@@ -60,7 +60,7 @@
         {{csrf_field()}}
           <h3 class="login-head"><i class="fa fa-lg fa-fw fa-lock"></i>Forgot Password ?</h3>
           <div class="form-group">
-           <input class="form-control" type="hidden"  name='tieude' value='Mã xác nhận tài khoản'>
+           <input class="form-control" type="hidden"  name='tieude' value='Authentication code'>
             <label class="control-label">EMAIL</label>
 
             <input class="form-control" type="email" placeholder="Email" name='mail' required>
