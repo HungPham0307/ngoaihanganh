@@ -9,7 +9,7 @@ class DoiBong extends Model
     protected $table = "doibong";
 
     public $timestamps = false;
-    
+
     protected $fillable = [
         'name',
         'sanvandong_id',
@@ -22,16 +22,16 @@ class DoiBong extends Model
 
     public function sanVanDong()
     {
-        return $this->belongsTo('App\Model\SanVanDong','sanvandong_id','id');
+        return $this->belongsTo('App\Model\SanVanDong', 'sanvandong_id', 'id');
     }
 
-     public function huanLuyenVien()
+    public function huanLuyenVien()
     {
-        return $this->hasOne('App\Model\HuanLuyenVien','huanluyenvien_id','id');
+        return $this->hasOne('App\Model\HuanLuyenVien', 'huanluyenvien_id', 'id');
     }
 
     public function cauThu()
     {
-        return $this->hasMany('App\Model\CauThu','doibong_id','id');
+        return $this->hasMany('App\Model\CauThu', 'doibong_id', 'id');
     }
 }
