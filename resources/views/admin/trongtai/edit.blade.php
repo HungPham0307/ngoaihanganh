@@ -17,13 +17,13 @@
 			</div>
 		</div>
 		<div class="page-title">
-			
+
 			<h4 style="margin-left: 37%; color: red;">
-				
+
 				@if(Session::has("msg"))
 				{{Session::get("msg")}}
 				@endif
-			</h4>			
+			</h4>
 		</div>
 		<div class="col-md-6" style="width: 100%;">
 			<div class="card">
@@ -96,7 +96,7 @@
 
             <div class="form-group">
               <label class="control-label">Detail *</label>
-              <textarea name="chitiet"  rows="7" cols="90" class="input-medium" style="width: 100%;" required > {{$objUser->chitiet}}</textarea>             
+              <textarea name="chitiet"  rows="7" cols="90" class="input-medium" style="width: 100%;" required > {{$objUser->chitiet}}</textarea>
             </div>
 
             <h4 style="margin-left: 37%; color: red;">
