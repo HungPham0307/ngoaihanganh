@@ -16,6 +16,7 @@ class KetQua extends Model
         'time',
         'chitiet',
     ];
+    public $timestamps = false;
 
     public function doibong()
     {

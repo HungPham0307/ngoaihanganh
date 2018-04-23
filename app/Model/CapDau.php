@@ -19,6 +19,7 @@ class CapDau extends Model
         'doinha_goals',
         'doikhach_goals',
     ];
+    public $timestamps = false;
 
     public function doinha()
     {

@@ -19,7 +19,7 @@
           Add Football
         </a>
       </h3>
-      @endif     
+      @endif
       <h3 style="margin-left: 37%; color:red">
         @if(Session::has("msg"))
         {{Session::get("msg")}}
@@ -36,16 +36,16 @@
                 <thead>
                   <tr>
                     <th style="text-align: center;">ID</th>
-                    <th style="text-align: center;" >Name </th>                    
+                    <th style="text-align: center;" >Name </th>
                     <th style="text-align: center;" >Email </th>
                     <th style="text-align: center;" >Website </th>
-                    <th style="text-align: center;" >Images </th>   
-                    @if(Session::has("name") && 
+                    <th style="text-align: center;" >Images </th>
+                    @if(Session::has("name") &&
                     Session::get("name")=="admin" )
-                    <th style="text-align: center;" >Trạng thái</th>
+                    <th style="text-align: center;" >Status</th>
                     @endif
                     <th style="text-align: center;" >
-                      <input type="submit" value="Delete" name="smXoa" class="xoa" onclick="return confirm('Bạn có chắc chắn muốn xóa không ?') " 
+                      <input type="submit" value="Delete" name="smXoa" class="xoa" onclick="return confirm('Bạn có chắc chắn muốn xóa không ?') "
                       style="border: 3px; border-radius: 3px; background-color: dodgerblue;">
                     </th>
 
@@ -55,20 +55,20 @@
 
                   @foreach($doiBong as $val )
 
-                  @php 
+                  @php
                   $id = $val ->id;
                   $urlEdit = route('admin.football.getedit',$id);
-                  @endphp 
+                  @endphp
 
                   <tr>
                     <td style="text-align: center;vertical-align: middle;" >{{$id}}</td>
-                    <td style="text-align: center;vertical-align: middle;" >{{$val->name}}</td>           
+                    <td style="text-align: center;vertical-align: middle;" >{{$val->name}}</td>
                     <td style="text-align: center;vertical-align: middle;" >{{$val->email}}</td>
                     <td style="text-align: center;vertical-align: middle;" ><a href="{{$val->website}}">{{$val->website}}</a></td>
                     <td style="text-align: center;vertical-align: middle;" >
                       <img style="width: 200px;height: 150px;" src='{!! asset("files/doidong/$val->hinhanh") !!}'>
                     </td>
-                    @if(Session::has("name") && 
+                    @if(Session::has("name") &&
                     Session::get("name")=="admin" )
                     <td style="text-align: center;vertical-align: middle;">
 
@@ -81,13 +81,13 @@
                           <img src= '/templates/admin/images/deactive.gif' alt="" />
                           @endif
                         </a>
-                      </span> 
+                      </span>
                       @endif
                     </td>
                     @endif
                     <td style="text-align: center;vertical-align: middle;" >
                       <img src= '{!!asset("templates/admin/images/edit.gif")!!}' />
-                      <a href="{{$urlEdit}}">Sửa </a>
+                      <a href="{{$urlEdit}}">Edit </a>
                       <img src= '{!!asset("templates/admin/images/bin.gif")!!}' />
                       <input   type="checkbox" value="{{$id}}" name="xoa[]"/>
                     </td>
