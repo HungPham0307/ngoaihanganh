@@ -9,13 +9,20 @@ class KetQua extends Model
     protected $table = "ketqua";
 
     protected $fillable = [
-        'capdau_id',
-        'tyso',
+        'sotran',
+        'doibong_id',
+        'muagiai_id',
+        'status',
+        'banthang',
+        'banthua',
+        'date',
+        'time',
         'chitiet',
     ];
+    public $timestamps = false;
 
-    public function capDau()
+    public function doibong()
     {
-        return $this->belongsTo('App\Model\CapDau','capdau_id','id');
+        return $this->belongsTo('App\Model\DoiBong', 'doibong_id', 'id');
     }
 }

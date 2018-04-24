@@ -17,13 +17,13 @@
 			</div>
 		</div>
 		<div class="page-title">
-			
+
 			<h4 style="margin-left: 37%; color: red;">
-				
+
 				@if(Session::has("msg"))
 				{{Session::get("msg")}}
 				@endif
-			</h4>			
+			</h4>
 		</div>
 		<div class="col-md-6" style="width: 100%;">
 			<div class="card">
@@ -31,7 +31,7 @@
 				<div class="card-body">
 					<form action="{{route('admin.football.postedit',$doiBong->id)}}" method="post" enctype="multipart/form-data"  >
 						{{csrf_field()}}
-						
+
 						@if($doiBong->hinhanh != "")
             <div class="form-group">
               <label>Old picture</label>
@@ -71,7 +71,7 @@
 
             <div class="form-group">
               <label class="control-label">Email *</label>
-              <input class="form-control" type="email" placeholder=" Nhập email" required name="email" value="{{$doiBong->email}}">
+              <input class="form-control" type="email" placeholder=" Enter email" required name="email" value="{{$doiBong->email}}">
             </div>
 
             <h4 style="margin-left: 37%; color: red;">
@@ -92,7 +92,7 @@
             </h4>
             <div class="form-group">
               <label class="control-label">Detail *</label>
-              <textarea name="chitiet"  rows="7" cols="90" class="input-medium" style="width: 100%;" required > {{$doiBong->chitiet}}</textarea>             
+              <textarea name="chitiet"  rows="7" cols="90" class="input-medium" style="width: 100%;" required > {{$doiBong->chitiet}}</textarea>
             </div>
 
             <h4 style="margin-left: 37%; color: red;">

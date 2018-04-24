@@ -29,16 +29,24 @@
     </div>
     <div class="col-md-6" style="width: 100%;">
       <div class="card">
-        <h3 class="card-title">Calendar</h3>
-        <form action="{{route('admin.calendar.calendar')}}" method="post">
+        <h3 class="card-title">Please select match round </h3>
+        <form action="{{route('admin.update.search')}}" method="post">
           {!! csrf_field() !!}
           <div class="card-body">
+            @php
+            $round = range(1,38);
+            @endphp
             <div class="form-group">
-              <label class="control-label" >Tournament start date: *</label>
-              <input style="width: 28%;height: 38px;" class="form-control" type="date" required name="date" value="">
+              <div class="" style="width: 15%;">
+                <select class="form-control" id="select" name="round">
+                  @foreach ($round as $key=>$val)
+                    <option value="{{$val}}"  >{{ $val }}</option>
+                  @endforeach
+                </select>
+              </div>
             </div>
           <div class="card-footer">
-            <button class="btn btn-primary icon-btn" name="smeditDM" type="submit"><i class="fa fa-fw fa-lg fa-check-circle"></i>Get Schedule</button>
+            <button class="btn btn-primary icon-btn" name="smeditDM" type="submit"><i class="fa fa-fw fa-lg fa-check-circle"></i>Search</button>
           </div>
           </div>
         </form>

@@ -5,14 +5,12 @@ namespace App\Mail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Http\Request;
-use App\Model\Contact;
+
 class SendMail extends Mailable
 {
     use Queueable, SerializesModels;
-     protected $formdata;
-   
+    protected $formdata;
+
     /**
      * Create a new message instance.
      *
@@ -21,7 +19,7 @@ class SendMail extends Mailable
     public function __construct($formdata)
     {
         $this->formdata = $formdata;
-       
+
     }
 
     /**
@@ -31,7 +29,7 @@ class SendMail extends Mailable
      */
     public function build()
     {
-     
+
         return $this->view('mail')->subject($this->formdata['tieude'])->to($this->formdata['mail']);
     }
 }

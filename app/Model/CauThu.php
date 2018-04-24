@@ -22,15 +22,10 @@ class CauThu extends Model
         'active',
     ];
 
-    public $timestamps =false;
+    public $timestamps = false;
 
     public function doiBong()
     {
-        return $this->belongsTo('App\Model\DoiBong','doibong_id','id');
-    }
-
-    public function banThang()
-    {
-        return $this->hasMany('App\Model\BanThang','cauthu_id','id');
+        return $this->belongsTo('App\Model\DoiBong', 'doibong_id', 'id');
     }
 }

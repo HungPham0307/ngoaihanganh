@@ -9,36 +9,25 @@ class CapDau extends Model
     protected $table = "capdau";
 
     protected $fillable = [
-        'sanvandong_id',
-        'ngaythidau',
-        'doi1',
-        'doi2',
-        'vongdau_id',
-        'doibong_id',
+        'vongdau',
+        'doinha_id',
+        'doikhach_id',
+        'vongdau',
+        'date',
+        'time',
+        'chitiet',
+        'doinha_goals',
+        'doikhach_goals',
     ];
+    public $timestamps = false;
 
-    public function sanVanDong()
+    public function doinha()
     {
-        return $this->belongsTo('App\Model\SanVanDong','sanvandong_id','id');
+        return $this->belongsTo('App\Model\DoiBong', 'doinha_id', 'id');
     }
 
-    public function vongDau()
+    public function doikhach()
     {
-        return $this->belongsTo('App\Model\VongDau','vongdau_id','id');
-    }
-
-    public function doiBong()
-    {
-        return $this->belongsTo('App\Model\DoiBong','vongdau_id','id');
-    }
-
-    public function banThang()
-    {
-        return $this->hasMany('App\Model\BanThang','capdau_id','id');
-    }
-
-    public function ketQua()
-    {
-        return $this->hasOne('App\Model\KetQua','capdau_id','id');
+        return $this->belongsTo('App\Model\DoiBong', 'doikhach_id', 'id');
     }
 }
