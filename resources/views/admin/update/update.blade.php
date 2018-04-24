@@ -63,6 +63,39 @@
               @endforeach
             </tbody>
           </table>
+
+          <table class="table" style="width: auto;">
+            <thead>
+              <tr>
+                <th style="text-align: center;" >Position</th>
+                <th style="text-align: center;" >Club</th>
+                <th style="text-align: center;" >Number Match</th>
+                <th style="text-align: center;" >Won</th>
+                <th style="text-align: center;" >Drawn</th>
+                <th style="text-align: center;" >Lost</th>
+                <th style="text-align: center;" >GF</th>
+                <th style="text-align: center;" >GA</th>
+                <th style="text-align: center;" >GD</th>
+                <th style="text-align: center;" >Points</th>
+              </tr>
+            </thead>
+            <tbody>
+              @foreach ($bxh as $key => $val)
+              <tr>
+                <td style="text-align: center;" >{{$key+1}}</td>
+                <td style="text-align: center;" >{{getNameClub($val->doibong_id)}}</td>
+                <td style="text-align: center;">{{numberMatch($val->doibong_id)}}</td>
+                <td style="text-align: center;" >{{$val->thang}}</td>
+                <td style="text-align: center;" >{{$val->hoa}}</td>
+                <td style="text-align: center;" >{{$val->thua}}</td>
+                <td style="text-align: center;" >{{$val->banthang}}</td>
+                <td style="text-align: center;" >{{$val->banthua}}</td>
+                <td style="text-align: center;" >{{$val->banthang - $val->banthua}}</td>
+                <td style="text-align: center;" >{{$val->thang*3 + $val->hoa*1}}</td>
+              </tr>
+              @endforeach
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
