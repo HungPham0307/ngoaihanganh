@@ -235,6 +235,7 @@ Route::group(['namespace' => "Admin", 'prefix' => 'admin', 'middleware' => 'auth
 
     });
 
+//UPDATE
     Route::group(["prefix" => "update"], function () {
         Route::get("/", [
             'uses' => 'UpdateController@index',
@@ -251,6 +252,10 @@ Route::group(['namespace' => "Admin", 'prefix' => 'admin', 'middleware' => 'auth
             'as' => 'admin.update.update',
         ])->where('id', '[0-9]+');
 
+        Route::get("/{round}", [
+            'uses' => 'UpdateController@show',
+            'as' => 'admin.update.show',
+        ])->where('round', '[0-9]+');
     });
 
 });

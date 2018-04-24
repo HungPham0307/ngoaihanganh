@@ -9,9 +9,12 @@ class KetQua extends Model
     protected $table = "ketqua";
 
     protected $fillable = [
-        'vongdau',
+        'sotran',
         'doibong_id',
+        'muagiai_id',
         'status',
+        'banthang',
+        'banthua',
         'date',
         'time',
         'chitiet',
