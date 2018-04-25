@@ -52,17 +52,18 @@ class UpdateController extends Controller
             count(CASE WHEN status = 1 THEN 1 ELSE NULL END) as thang,
             count(CASE WHEN status = 0 THEN 1 ELSE NULL END) as hoa,
             count(CASE WHEN status = -1 THEN 1 ELSE NULL END) as thua,
+            (count(CASE WHEN status = 1 THEN 1 ELSE NULL END)*3 + count(CASE WHEN status = 0 THEN 1 ELSE NULL END)*1) as tongso,
             sum(banthang) as banthang,
-            sum(banthua) as banthua')
-            ->orderBy('thang', 'DESC')
-            ->orderBy('hoa', 'DESC')
-            ->orderBy('thua', 'DESC')
+            sum(banthua) as banthua,
+            (sum(banthang)-sum(banthua)) as hieuso')
+            ->orderBy('tongso', 'DESC')
+            ->orderBy('hieuso', 'DESC')
             ->orderBy('doibong.name', 'ASC')
             ->groupBy('doibong_id')->get();
 
-        $matchs = MuaGiai::where('vongdau', $round)->with('sanvandong', 'doinha', 'doikhach')->get();
+        $matchs = MuaGiai::where('vongdau', $round)->with('sanvandong', 'doinha', 'doikhach')->orderBy('date', 'ASC')->orderBy('time', 'ASC')->get();
 
-        return view('admin.update.update', compact('matchs', 'bxh'));
+        return view('admin.update.update', compact('matchs', 'bxh', 'round'));
     }
 
     public function update(Request $request, $id)
@@ -79,6 +80,7 @@ class UpdateController extends Controller
             'time' => Carbon::parse($match->time)->format('H:i'),
             'doinha_id' => $match->doinha_id,
             'doikhach_id' => $match->doikhach_id,
+            'sanvandong_id' => $match->sanvandong_id,
             'vongdau' => $match->vongdau,
             'doinha_goals' => $request->home_goals,
             'doikhach_goals' => $request->away_goals,
@@ -170,5 +172,67 @@ class UpdateController extends Controller
         $round = $match->vongdau;
 
         return redirect()->route('admin.update.show', compact('round'));
+    }
+
+    public function exportResultRound($round)
+    {
+        $capdau = CapDau::with('sanvandong', 'doinha', 'doikhach')->where('vongdau', $round)->orderBy('date', 'ASC')->orderBy('time', 'ASC')->get();
+        $tot_record_found = 0;
+        if (count($capdau)) {
+            $tot_record_found = 1;
+            //First Methos
+            $export_data = "Round,Date,Time,Home_Team,Away_Team,Stadium,Result\n";
+            foreach ($capdau as $value) {
+                $export_data .= $value->vongdau . ',' . Carbon::parse($value->date)->format('Y-m-d') . ',' . Carbon::parse($value->time)->format('H:i') .
+                ' PM ,' . $value->doinha->name . ',' . $value->doikhach->name . ',' . $value->sanvandong->name . ',' . $value->doinha_goals . '-' . $value->doikhach_goals . "\n";
+            }
+            return response($export_data)
+                ->header('Content-Type', 'application/csv')
+                ->header('Content-Disposition', 'attachment; filename="result.csv"')
+                ->header('Pragma', 'no-cache')
+                ->header('Expires', '0');
+        } else {
+            return redirect()->route('admin.update.show', compact('round'));
+        }
+        die();
+    }
+
+    public function exportRankings($round)
+    {
+        $bxh = DB::table('ketqua')
+            ->join('doibong', 'doibong.id', '=', 'ketqua.doibong_id')
+            ->selectRaw('doibong_id,
+            count(CASE WHEN status = 1 THEN 1 ELSE NULL END) as thang,
+            count(CASE WHEN status = 0 THEN 1 ELSE NULL END) as hoa,
+            count(CASE WHEN status = -1 THEN 1 ELSE NULL END) as thua,
+            (count(CASE WHEN status = 1 THEN 1 ELSE NULL END)*3 + count(CASE WHEN status = 0 THEN 1 ELSE NULL END)*1) as tongso,
+            sum(banthang) as banthang,
+            sum(banthua) as banthua,
+            (sum(banthang)-sum(banthua)) as hieuso')
+            ->orderBy('tongso', 'DESC')
+            ->orderBy('hieuso', 'DESC')
+            ->orderBy('doibong.name', 'ASC')
+            ->groupBy('doibong_id')->get();
+
+        $tot_record_found = 0;
+        if (count($bxh)) {
+            $tot_record_found = 1;
+            //First Methos
+            $export_data = "Position,Club,Number Match,Won,Drawn,Lost,GF,GA,GD,Points\n";
+            foreach ($bxh as $key => $val) {
+                $export_data .= ($key + 1) . ',' . getNameClub($val->doibong_id) . ',' . numberMatch($val->doibong_id) .
+                ',' . $val->thang . ',' . $val->hoa . ',' . $val->thua . ',' . $val->banthang . ',' .
+                $val->banthua . ',' . $val->hieuso . ',' . $val->tongso . "\n";
+            }
+            return response($export_data)
+                ->header('Content-Type', 'application/csv')
+                ->header('Content-Disposition', 'attachment; filename="Rankings.csv"')
+                ->header('Pragma', 'no-cache')
+                ->header('Expires', '0');
+        } else {
+            return redirect()->route('admin.update.show', compact('round'));
+        }
+
+        die();
     }
 }

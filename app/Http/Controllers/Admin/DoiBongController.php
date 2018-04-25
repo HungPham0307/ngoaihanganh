@@ -158,16 +158,24 @@ class DoiBongController extends Controller
 
         if ($objUser->update()) {
             $request->session()->flash('msg', 'Edit success');
+
             return redirect()->route('admin.football.index');
         } else {
             $request->session()->flash('msg', 'Edit failed');
+
             return redirect()->route('admin.football.getedit', $id);
         }
     }
 
-    public function getAdd()
+    public function getAdd(Request $request)
     {
         $doiBong = DoiBong::all();
+
+        if ($doiBong->count() == 20) {
+            $request->session()->flash('msg', 'Add club failed ! Total number of club is 20');
+
+            return redirect()->route('admin.football.index');
+        }
 
         return view('admin.cauthu.add', compact('doiBong'));
     }

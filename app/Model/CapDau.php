@@ -12,6 +12,7 @@ class CapDau extends Model
         'vongdau',
         'doinha_id',
         'doikhach_id',
+        'sanvandong_id',
         'vongdau',
         'date',
         'time',
@@ -29,5 +30,10 @@ class CapDau extends Model
     public function doikhach()
     {
         return $this->belongsTo('App\Model\DoiBong', 'doikhach_id', 'id');
+    }
+
+    public function sanvandong()
+    {
+        return $this->belongsTo('App\Model\SanVanDong', 'sanvandong_id', 'id');
     }
 }

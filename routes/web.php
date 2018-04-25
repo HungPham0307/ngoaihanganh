@@ -163,42 +163,6 @@ Route::group(['namespace' => "Admin", 'prefix' => 'admin', 'middleware' => 'auth
 
     });
 
-//Cau Thu
-    Route::group(["prefix" => "player"], function () {
-        Route::get('active/{nid}', 'CauThuController@trangThai');
-
-        Route::get('', [
-            'uses' => 'CauThuController@index',
-            'as' => 'admin.player.index',
-        ]);
-
-        Route::get('add', [
-            'uses' => 'CauThuController@getAdd',
-            'as' => 'admin.player.getadd',
-        ]);
-
-        Route::post('add', [
-            'uses' => 'CauThuController@postAdd',
-            'as' => 'admin.player.postadd',
-        ]);
-
-        Route::get('edit/{cauThu}', [
-            'uses' => 'CauThuController@getEdit',
-            'as' => 'admin.player.getedit',
-        ])->where('{cauThu}', '[0-9]+');
-
-        Route::post('edit/{id}', [
-            'uses' => 'CauThuController@postEdit',
-            'as' => 'admin.player.postedit',
-        ]);
-
-        Route::post('del', [
-            'uses' => 'CauThuController@del',
-            'as' => 'admin.player.del',
-        ])->middleware("role:admin");
-
-    });
-
 //Football
     Route::group(["prefix" => "football"], function () {
         Route::get('active/{nid}', 'DoiBongController@trangThai');
@@ -209,7 +173,7 @@ Route::group(['namespace' => "Admin", 'prefix' => 'admin', 'middleware' => 'auth
         ]);
 
         Route::get('add', [
-            'uses' => 'DoiBongController@export',
+            'uses' => 'DoiBongController@getAdd',
             'as' => 'admin.football.getadd',
         ]);
 
@@ -231,6 +195,39 @@ Route::group(['namespace' => "Admin", 'prefix' => 'admin', 'middleware' => 'auth
         Route::post('del', [
             'uses' => 'DoiBongController@del',
             'as' => 'admin.football.del',
+        ])->middleware("role:admin");
+
+        Route::get('/player/active/{nid}', 'CauThuController@trangThai');
+
+        //player
+        Route::get('{id}/player', [
+            'uses' => 'CauThuController@index',
+            'as' => 'admin.player.index',
+        ])->where('{id}', '[0-9]+');
+
+        Route::get('{id}/add_player', [
+            'uses' => 'CauThuController@getAdd',
+            'as' => 'admin.player.getadd',
+        ])->where('{id}', '[0-9]+');
+
+        Route::post('{id}/add', [
+            'uses' => 'CauThuController@postAdd',
+            'as' => 'admin.player.postadd',
+        ])->where('{id}', '[0-9]+');
+
+        Route::get('player/{id}', [
+            'uses' => 'CauThuController@getEdit',
+            'as' => 'admin.player.getedit',
+        ])->where('{id}', '[0-9]+');
+
+        Route::post('player/{id}', [
+            'uses' => 'CauThuController@postEdit',
+            'as' => 'admin.player.postedit',
+        ])->where('{id}', '[0-9]+');
+
+        Route::post('del/player', [
+            'uses' => 'CauThuController@del',
+            'as' => 'admin.player.del',
         ])->middleware("role:admin");
 
     });
@@ -256,6 +253,17 @@ Route::group(['namespace' => "Admin", 'prefix' => 'admin', 'middleware' => 'auth
             'uses' => 'UpdateController@show',
             'as' => 'admin.update.show',
         ])->where('round', '[0-9]+');
+
+        Route::get('{round}/export_result', [
+            'uses' => 'UpdateController@exportResultRound',
+            'as' => 'admin.update.exportResultRound',
+        ])->where('round', '[0-9]+');
+
+        Route::get('{round}/export_rankings', [
+            'uses' => 'UpdateController@exportRankings',
+            'as' => 'admin.update.exportRankings',
+        ]);
+
     });
 
 });

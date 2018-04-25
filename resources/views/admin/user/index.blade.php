@@ -23,13 +23,13 @@
       Thêm quản lí
     </a>
   </h3>
-  @endif			
+  @endif
   <h3 style="margin-left: 37%; color:red">
     @if(Session::has("msg"))
     {{Session::get("msg")}}
     @endif
   </h3>
-  
+
 </div>
 <div class="row">
   <div class="col-md-12">
@@ -41,37 +41,37 @@
            <thead>
             <tr>
               <th style="text-align: center;">ID</th>
-              <th style="text-align: center;" >UserName </th>                    
+              <th style="text-align: center;" >UserName </th>
               <th style="text-align: center;" >FullName</th>
-              <th style="text-align: center;" >Email </th>  
-              @if(Session::has("name") && 
+              <th style="text-align: center;" >Email </th>
+              @if(Session::has("name") &&
               Session::get("name")=="admin" )
               <th style="text-align: center;" >Trạng thái</th>
               @endif
               <th style="text-align: center;" >
-               <input type="submit" value="Delete" name="smXoa" class="xoa" onclick="return confirm('Bạn có chắc chắn muốn xóa không ?') " 
+               <input type="submit" value="Delete" name="smXoa" class="xoa" onclick="return confirm('Bạn có chắc chắn muốn xóa không ?') "
                style="border: 3px; border-radius: 3px; background-color: dodgerblue;">
              </th>
-             
+
            </tr>
          </thead>
          <tbody class= "hienthigopy">
-           
+
            @foreach($objUser as $val )
 
-           @php 
+           @php
            $id = $val ->id;
            $urlEdit = route('admin.user.getedit',$id);
-           
-           @endphp 
-           
+
+           @endphp
+
            <tr>
             <td style="text-align: center;" >{{$id}}</td>
-            <td style="text-align: center;" >{{$val->username}}</td>					  
+            <td style="text-align: center;" >{{$val->username}}</td>
             <td style="text-align: center;" >{{$val->fullname}}</td>
             <td style="text-align: center;" >{{$val->email}}</td>
 
-            @if(Session::has("name") && 
+            @if(Session::has("name") &&
             Session::get("name")=="admin" )
             <td style="text-align: center;">
 
@@ -84,7 +84,7 @@
                  <img src="{{ $adminUrl }}/images/deactive.gif" alt="" />
                  @endif
                </a>
-             </span> 
+             </span>
              @endif
            </td>
            @endif
@@ -93,18 +93,18 @@
              <a href="{{$urlEdit}}">Sửa </a>
              <img src= "/templates/admin/images/bin.gif" />
              <input   type="checkbox" value="{{$id}}" name="xoa[]"/>
-             
-             
+
+
            </td>
-           
+
          </tr>
-         
+
          @endforeach
-         
+
        </tbody>
      </table>
    </form>
- </div>			  
+ </div>
 </div>
 </div>
 </div>
@@ -118,12 +118,12 @@
   {
     var url='/admin/user/active/'+id;
     var tmp="#actice-"+id;
-    
+
     $.ajax({
       url:url,
       dataType: "html",
       success: function(result) {
-       
+
         $(tmp).html(result);
       },
     });
