@@ -17,7 +17,19 @@
       </div>
     </div>
     <div class="page-title">
+      <div class="title">
+        <h3 class="add" style="width: auto;">
+          <a href="{{ route('admin.update.exportResultRound',['round' => $round]) }}">
+            Download the round result
+          </a>
+        </h3>
 
+        <h3 class="add " style="width: auto;">
+          <a href="{{route('admin.update.exportRankings',['round' => $round])}}">
+            download the rankings
+          </a>
+        </h3>
+      </div>
       <h4 style="margin-left: 37%; color: red;">
 
         @if(Session::has("msg"))
@@ -36,6 +48,7 @@
                 <th style="text-align: center;" >Home Team</th>
                 <th style="text-align: center;" >Score</th>
                 <th style="text-align: center;" >Away Team</th>
+                <th style="text-align: center;" >Stadium</th>
                 <th style="text-align: center;" >Time</th>
                 <th style="text-align: center;" >Action</th>
               </tr>
@@ -52,6 +65,7 @@
                   <input type="number" name="away_goals"  min="0" value="{{awayScore($match->doikhach_id, $match->vongdau)}}" style="width: 15%; text-align: center;" required>
                 </td>
                 <td style="text-align: center;" >{{$match->doikhach->name}}</td>
+                <td style="text-align: center;" >{{$match->sanvandong->name}}</td>
                 <td style="text-align: center;" >
                   {{ Carbon\Carbon::parse($match->date)->format('Y/m/d')}} {{ Carbon\Carbon::parse($match->time)->format('H:i') }} PM
                 </td>
@@ -90,8 +104,8 @@
                 <td style="text-align: center;" >{{$val->thua}}</td>
                 <td style="text-align: center;" >{{$val->banthang}}</td>
                 <td style="text-align: center;" >{{$val->banthua}}</td>
-                <td style="text-align: center;" >{{$val->banthang - $val->banthua}}</td>
-                <td style="text-align: center;" >{{$val->thang*3 + $val->hoa*1}}</td>
+                <td style="text-align: center;" >{{$val->hieuso}}</td>
+                <td style="text-align: center;" >{{$val->tongso}}</td>
               </tr>
               @endforeach
             </tbody>

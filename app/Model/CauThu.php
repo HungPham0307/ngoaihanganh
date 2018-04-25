@@ -28,4 +28,9 @@ class CauThu extends Model
     {
         return $this->belongsTo('App\Model\DoiBong', 'doibong_id', 'id');
     }
+
+    public function vitri()
+    {
+        return $this->belongsTo('App\Model\ViTri', 'vitri_id', 'id');
+    }
 }

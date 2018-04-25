@@ -16,22 +16,22 @@
 			</div>
 		</div>
 		<div class="page-title">
-			
+
 			<h4 style="margin-left: 37%; color: red;">
-				
+
 				@if(Session::has("msg"))
 				{{Session::get("msg")}}
 				@endif
-			</h4>			
+			</h4>
 		</div>
 		<div class="col-md-6" style="width: 100%;">
 			<div class="card">
 				<h3 class="card-title">Infomation</h3>
 				<div class="card-body">
-					<form action="{{route('admin.referee.postadd')}}" method="post" enctype="multipart/form-data"  >
+					<form action="{{route('admin.football.postadd')}}" method="post" enctype="multipart/form-data"  >
 						{{csrf_field()}}
 						<div class="form-group">
-							<label class="control-label">UserName *</label>
+							<label class="control-label">Name Club *</label>
 							<input type="text" name="username"  class="form-control border-input" placeholder="Enter Username" value="" required>
 						</div>
 

@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- CSS-->
     <link rel="stylesheet" type="text/css" href="{{asset('templates/admin/css/main.css')}}">
-	<link href="/files/vinacenter.png" rel="shortcut icon">
+	 <link href="/files/vinacenter.png" rel="shortcut icon">
 	 <!-- Javascripts-->
     <script src='{!!asset("templates/admin/js/jquery-2.1.4.min.js")!!}'></script>
     <script src='{!!asset("templates/admin/js/jquery.validate.min.js")!!}'></script>
@@ -31,12 +31,12 @@
           <div class="navbar-custom-menu">
             <ul class="top-nav">
               <!--Notification Menu-->
-            
+
               <!-- User Menu-->
-			 
+
               <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-user fa-lg"></i></a>
                 <ul class="dropdown-menu settings-menu">
-                  <li><a href=""><i class="fa fa-cog fa-lg"></i> Tài khoản</a></li>                
+                  <li><a href=""><i class="fa fa-cog fa-lg"></i> Tài khoản</a></li>
                   <li><a href="{{route('admin.user.logout')}}"><i class="fa fa-sign-out fa-lg"></i> Đăng xuất</a></li>
                 </ul>
               </li>

@@ -19,7 +19,7 @@
  <div class="page-title">
    @if(Session::has("name") && Session::get("name")=="admin" )
    <h3 class="add">
-     <a href=" {{ route('admin.calendar.export')}}">
+     <a href=" {{ route('admin.calendar.export') }}">
       Download
     </a>
   </h3>

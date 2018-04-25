@@ -17,9 +17,12 @@
 			</div>
 		</div>
 		<div class="page-title">
-
+      <h3 class="add" style="margin-left: 20px;">
+          <a href="{{route('admin.player.index', ['id' => $doiBong->id])}}">
+            Player
+          </a>
+        </h3>
 			<h4 style="margin-left: 37%; color: red;">
-
 				@if(Session::has("msg"))
 				{{Session::get("msg")}}
 				@endif
@@ -81,7 +84,7 @@
             </h4>
 
             <div class="form-group">
-              <label class="control-label" > Birthday *</label>
+              <label class="control-label" > The club was founded *</label>
               <input style="width: 28%;" class="form-control" type="date" required name="birthday" value="{!! date('Y-m-d', strtotime($doiBong->ngaythanhlap))!!}">
             </div>
 

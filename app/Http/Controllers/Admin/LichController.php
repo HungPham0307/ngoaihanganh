@@ -96,7 +96,7 @@ class LichController extends Controller
             $export_data = "Round,Date,Time,Home_Team,Away_Team,Stadiums\n";
             foreach ($muaGiai as $value) {
                 $export_data .= $value->vongdau . ',' . Carbon::parse($value->date)->format('Y-m-d') . ',' . Carbon::parse($value->time)->format('H:i') .
-                ',' . $value->doinha->name . ',' . $value->doikhach->name . ',' . $value->sanvandong->name . "\n";
+                ' PM ,' . $value->doinha->name . ',' . $value->doikhach->name . ',' . $value->sanvandong->name . "\n";
             }
             return response($export_data)
                 ->header('Content-Type', 'application/csv')
