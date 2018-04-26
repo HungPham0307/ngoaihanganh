@@ -182,10 +182,10 @@ Route::group(['namespace' => "Admin", 'prefix' => 'admin', 'middleware' => 'auth
             'as' => 'admin.football.postadd',
         ]);
 
-        Route::get('edit/{doiBong}', [
+        Route::get('edit/{id}', [
             'uses' => 'DoiBongController@getEdit',
             'as' => 'admin.football.getedit',
-        ])->where('{doiBong}', '[0-9]+');
+        ])->where('{id}', '[0-9]+');
 
         Route::post('edit/{id}', [
             'uses' => 'DoiBongController@postEdit',

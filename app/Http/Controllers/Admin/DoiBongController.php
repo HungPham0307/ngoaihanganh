@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Model\CauThu;
 use App\Model\DoiBong;
+use App\Model\SanVanDong;
 use DB;
 use Illuminate\Http\Request;
 
@@ -39,16 +39,23 @@ class DoiBongController extends Controller
     {
 
         $id = $request->xoa;
+        $stadium_id = DoiBong::whereIn('id', $id)->pluck('sanvandong_id')->toArray();
 
         DoiBong::destroy($id);
 
         DB::table('cauthu')->whereIn('doibong_id', $id)->delete();
+
+        DB::table('sanvandong')->whereIn('id', $stadium_id)->delete();
+
         $request->session()->flash('msg', 'Delete Success');
+
         return redirect()->route('admin.football.index');
     }
 
-    public function getEdit(DoiBong $doiBong)
+    public function getEdit($id)
     {
+
+        $doiBong = DoiBong::with('sanVanDong')->findOrFail($id);
 
         return view("admin.doibong.edit", compact("doiBong"));
     }
@@ -75,95 +82,97 @@ class DoiBongController extends Controller
 
     public function postEdit($id, Request $request)
     {
-        $objUser = DoiBong::FindOrFail($id);
+        $club = DoiBong::FindOrFail($id);
         $email = $request->email;
-        $check = DoiBong::where('email', '=', $email)->where('id', '!=', $id)->first();
+        $name = $request->name_club;
+        $checkEmail = DoiBong::where('email', $email)->where('id', '!=', $id)->first();
 
-        if (null != $check) {
+        $checkName = DoiBong::where('name', $name)->where('id', '!=', $id)->first();
+
+        if (null != $checkEmail) {
             $request->session()->flash('email', 'This email has already existed !');
+
             return redirect()->route('admin.football.getedit', $id);
         } else {
 
-            $objUser->chitiet = $request->chitiet;
-            $objUser->vitri = $request->position;
-            $objUser->ngaysinh = $request->brithday;
-            $objUser->email = $request->email;
-            $objUser->name = $request->username;
-            $objUser->fullname = $request->fullname;
-            $objUser->diachi = $request->address;
-            $objUser->soao = $request->number;
-            $objUser->doibong_id = $request->doibong;
+            if (null != $checkName) {
+                $request->session()->flash('name_club', 'This name club has already existed !');
 
-            $picture = $request->hinhanh;
+                return redirect()->route('admin.football.getedit', $id);
+            }
 
-            if (isset($request->delete_picture)) {
+            $club->chitiet = $request->chitiet;
+            $club->website = $request->link;
+            $club->email = $email;
+            $club->name = $name;
+            $club->diachi = $request->address;
+            $club->ngaythanhlap = $request->birthday;
+
+            $picture_club = $request->hinhanh;
+            $picture_stadium = $request->picutre_stadium;
+
+            $stadium = SanVanDong::findOrFail($club->sanvandong_id);
+
+            $stadium->name = $request->name_stadium;
+            $stadium->suc_chua = $request->total_number;
+            $stadium->chitiet = $request->detail_stadium;
+
+            if (isset($request->delete_picture_club) || isset($request->delete_picture_stadium)) {
                 //giao diện có hiện thị ra checkbox nhưng k chọn thì vẫn k tồn tại
-                if ("" == $picture) {
+                if ("" == $picture_club) {
                     $request->session()->flash('hinhanh', 'Please choose images');
+
                     return redirect()->route('admin.football.getedit', $id);
                     die();
                 }
-                $oldPic = $objUser->hinhanh;
 
-                unlink("files/cauthu/" . $oldPic);
+                //giao diện có hiện thị ra checkbox nhưng k chọn thì vẫn k tồn tại
+                if ("" == $picture_stadium) {
+                    $request->session()->flash('picutre_stadium', 'Please choose images');
 
-                $path = "files/cauthu/";
-                $fileName = str_random('10') . time() . '.' . $picture->getClientOriginalExtension();
-
-                $picture->move($path, $fileName);
-
-                $objUser->hinhanh = $fileName;
-
-                if ($objUser->update()) {
-                    $request->session()->flash('msg', 'Edit success');
-                    return redirect()->route('admin.football.index');
-                } else {
-                    $request->session()->flash('msg', 'Edit failed');
                     return redirect()->route('admin.football.getedit', $id);
+                    die();
                 }
-            } else {
 
-                if ("" != $picture) {
-                    $path = "files/cauthu/";
-                    $fileName = str_random('10') . time() . '.' . $picture->getClientOriginalExtension();
+                $oldPicClub = $club->hinhanh;
 
-                    $picture->move($path, $fileName);
+                unlink("files/doibong/" . $oldPicClub);
 
-                    $objUser->hinhanh = $fileName;
+                $path = "files/doibong/";
 
-                    //xóa ảnh cũ
-                    $oldPic = $objUser->hinhanh;
-                    if ("" != $oldPic) {
-                        unlink("files/cauthu/" . $oldPic);
-                    }
+                $nameClub = str_random('10') . time() . '.' . $picture_club->getClientOriginalExtension();
 
-                    if ($objUser->update()) {
-                        $request->session()->flash('msg', 'Edit success');
-                        return redirect()->route('admin.football.index');
-                    } else {
-                        $request->session()->flash('msg', 'Edit failed');
-                        return redirect()->route('admin.football.getedit', $id);
-                    }
-                } else {
-                    if ($objUser->update()) {
-                        $request->session()->flash('msg', 'Edit success');
-                        return redirect()->route('admin.football.index');
-                    } else {
-                        $request->session()->flash('msg', 'Edit failed');
-                        return redirect()->route('admin.football.getedit', $id);
-                    }
-                }
+                $picture_club->move($path, $nameClub);
+
+                $club->hinhanh = $nameClub;
+
+                $oldPicStadium = $stadium->hinhanh;
+
+                unlink("files/sanvandong/" . $oldPicStadium);
+
+                $path = "files/sanvandong/";
+
+                $nameStadium = str_random('10') . time() . '.' . $picture_stadium->getClientOriginalExtension();
+
+                $picture_stadium->move($path, $nameStadium);
+
+                $stadium->hinhanh = $nameStadium;
             }
-        }
 
-        if ($objUser->update()) {
+            DB::beginTransaction();
+            try {
+                $club->update();
+                $stadium->update();
+                DB::commit();
+            } catch (\Exception $e) {
+                DB::rollBack();
+
+                return $this->respondServerError();
+            }
+
             $request->session()->flash('msg', 'Edit success');
 
             return redirect()->route('admin.football.index');
-        } else {
-            $request->session()->flash('msg', 'Edit failed');
-
-            return redirect()->route('admin.football.getedit', $id);
         }
     }
 
@@ -177,51 +186,71 @@ class DoiBongController extends Controller
             return redirect()->route('admin.football.index');
         }
 
-        return view('admin.cauthu.add', compact('doiBong'));
+        return view('admin.doibong.add', compact('doiBong'));
     }
 
     public function postAdd(Request $request)
     {
         $email = $request->email;
-        $check = CauThu::where('email', '=', $email)->first();
+        $check = DoiBong::where('email', '=', $email)->first();
 
         if (null != $check) {
             $request->session()->flash('email', 'This email has already existed !');
             return redirect()->route('admin.football.getadd');
         } else {
-            $picture = $request->hinhanh;
+            $picture_stadium = $request->picutre_stadium;
+            $picture_club = $request->hinhanh;
 
-            if ("" == $picture) {
+            if ("" == $picture_club || "" == $picture_stadium) {
                 $request->session()->flash('msg', 'Please choose images');
+
                 return redirect()->route('admin.football.getadd');
                 die();
             }
 
-            $arrItem = [
-                "name" => $request->username,
-                "fullname" => $request->fullname,
-                "diachi" => $request->address,
-                "email" => $request->email,
-                "ngaysinh" => $request->birthday,
-                "vitri" => $request->position,
-                "chitiet" => $request->chitiet,
-                'soao' => $request->number,
-                'doibong_id' => $request->doibong,
+            $arrStadium = [
+                "name" => $request->name_stadium,
+                "suc_chua" => $request->total_number,
+                "chitiet" => $request->detail_stadium,
             ];
 
-            $path = "files/cauthu/";
-            $fileName = str_random('10') . time() . '.' . $picture->getClientOriginalExtension();
-            $picture->move($path, $fileName);
+            $path = "files/sanvandong/";
+            $fileName = str_random('10') . time() . '.' . $picture_stadium->getClientOriginalExtension();
+            $picture_stadium->move($path, $fileName);
 
-            $arrItem["hinhanh"] = $fileName;
+            $arrStadium["hinhanh"] = $fileName;
 
-            if (CauThu::insert($arrItem)) {
-                $request->session()->flash('msg', 'Add success');
-                return redirect()->route('admin.football.index');
-            } else {
-                $request->session()->flash('msg', 'Add failed');
-                return redirect()->route('admin.football.index');
+            $arrClub = [
+                "name" => $request->name_club,
+                "website" => $request->link,
+                "diachi" => $request->address,
+                "email" => $request->email,
+                "ngaythanhlap" => $request->date,
+                "chitiet" => $request->chitiet,
+            ];
+
+            $path = "files/doibong/";
+            $fileName = str_random('10') . time() . '.' . $picture_club->getClientOriginalExtension();
+            $picture_club->move($path, $fileName);
+
+            $arrClub["hinhanh"] = $fileName;
+
+            DB::beginTransaction();
+            try {
+                $stadium_id = DB::table('sanvandong')->insertGetId($arrStadium);
+
+                $arrClub['sanvandong_id'] = $stadium_id;
+                DB::table('doibong')->insert($arrClub);
+                DB::commit();
+            } catch (\Exception $e) {
+                DB::rollBack();
+
+                return $this->respondServerError();
             }
+
+            $request->session()->flash('msg', 'Add success');
+
+            return redirect()->route('admin.football.index');
         }
     }
 }

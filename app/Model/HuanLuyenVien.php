@@ -17,8 +17,10 @@ class HuanLuyenVien extends Model
         'chitiet',
     ];
 
+    public $timestamps = false;
+
     public function doiBong()
     {
-        return $this->belongsTo('App\Model\DoiBong','doibong_id','id');
+        return $this->belongsTo('App\Model\DoiBong', 'doibong_id', 'id');
     }
 }

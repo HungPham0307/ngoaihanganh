@@ -16,13 +16,13 @@
 			</div>
 		</div>
 		<div class="page-title">
-			
+
 			<h4 style="margin-left: 37%; color: red;">
-				
+
 				@if(Session::has("msg"))
 				{{Session::get("msg")}}
 				@endif
-			</h4>			
+			</h4>
 		</div>
 		<div class="col-md-6" style="width: 100%;">
 			<div class="card">
@@ -35,27 +35,33 @@
 							<input type="text" name="username"  class="form-control border-input" placeholder="Enter Username" value="" required>
 						</div>
 
-						@if ($errors->has('username'))
-						<span style="color: red;">{{ array_first($errors->get('username')) }}</span>
-						@endif
+						<h4 style="margin-left: 37%; color: red;">
+              @if(Session::has("username"))
+                {{Session::get("username")}}
+              @endif
+            </h4>
 
 						<div class="form-group">
 							<label class="control-label">FullName *</label>
 							<input class="form-control" type="text" placeholder=" Enter fullname" required name="fullname" value="">
 						</div>
 
-						@if ($errors->has('fullname'))
-						<span style="color: red;">{{ array_first($errors->get('fullname')) }}</span>
-						@endif
+						<h4 style="margin-left: 37%; color: red;">
+              @if(Session::has("fullname"))
+                {{Session::get("fullname")}}
+              @endif
+            </h4>
 
             <div class="form-group">
               <label class="control-label">Address *</label>
               <input class="form-control" type="text" placeholder="" required name="address" value="">
             </div>
 
-            @if ($errors->has('address'))
-            <span style="color: red;">{{ array_first($errors->get('address')) }}</span>
-            @endif
+            <h4 style="margin-left: 37%; color: red;">
+              @if(Session::has("address"))
+                {{Session::get("address")}}
+              @endif
+            </h4>
 
             <div class="form-group">
               <label class="control-label">Email *</label>

@@ -14,14 +14,15 @@ class BanThang extends Model
         'time',
         'chitiet',
     ];
+    public $timestamps = false;public $timestamps = false;
 
     public function cauThu()
     {
-        return $this->belongsTo('App\Model\CauThu','cauthu_id','id');
+        return $this->belongsTo('App\Model\CauThu', 'cauthu_id', 'id');
     }
 
     public function capDau()
     {
-        return $this->belongsTo('App\Model\CauThu','capdau_id','id');
+        return $this->belongsTo('App\Model\CauThu', 'capdau_id', 'id');
     }
 }

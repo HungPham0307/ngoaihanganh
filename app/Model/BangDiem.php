@@ -17,11 +17,12 @@ class BangDiem extends Model
         'diem',
         'sotran',
         'ban_thang',
-        'ban_thua'
+        'ban_thua',
     ];
+    public $timestamps = false;
 
     public function doiBong()
     {
-        return $this->belongsTo('App\Model\DoiBong','doibong_id','id');
+        return $this->belongsTo('App\Model\DoiBong', 'doibong_id', 'id');
     }
 }

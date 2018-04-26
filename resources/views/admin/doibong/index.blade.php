@@ -44,7 +44,7 @@
                     <th style="text-align: center;" >Status</th>
                     @endif
                     <th style="text-align: center;" >
-                      <input type="submit" value="Delete" name="smXoa" class="xoa" onclick="return confirm('Bạn có chắc chắn muốn xóa không ?') "
+                      <input type="submit" value="Delete" name="smXoa" class="xoa" onclick="return confirm('Are you sure want to delete ?') "
                       style="border: 3px; border-radius: 3px; background-color: dodgerblue;">
                     </th>
 
@@ -65,7 +65,7 @@
                     <td style="text-align: center;vertical-align: middle;" >{{$val->email}}</td>
                     <td style="text-align: center;vertical-align: middle;" ><a href="{{$val->website}}">{{$val->website}}</a></td>
                     <td style="text-align: center;vertical-align: middle;" >
-                      <img style="width: 200px;height: 150px;" src='{!! asset("files/doidong/$val->hinhanh") !!}'>
+                      <img style="width: 200px;height: 150px;" src="/files/doibong/{{$val->hinhanh}}">
                     </td>
                     @if(Session::has("name") &&
                     Session::get("name")=="admin" )

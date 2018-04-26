@@ -16,9 +16,7 @@
 			</div>
 		</div>
 		<div class="page-title">
-
 			<h4 style="margin-left: 37%; color: red;">
-
 				@if(Session::has("msg"))
 				{{Session::get("msg")}}
 				@endif
@@ -26,40 +24,34 @@
 		</div>
 		<div class="col-md-6" style="width: 100%;">
 			<div class="card">
-				<h3 class="card-title">Infomation</h3>
+				<h3 class="card-title">Club</h3>
 				<div class="card-body">
 					<form action="{{route('admin.football.postadd')}}" method="post" enctype="multipart/form-data"  >
 						{{csrf_field()}}
 						<div class="form-group">
 							<label class="control-label">Name Club *</label>
-							<input type="text" name="username"  class="form-control border-input" placeholder="Enter Username" value="" required>
+							<input type="text" name="name_club"  class="form-control border-input" placeholder="Enter name club" value="" required style="width: 28%;">
 						</div>
 
-						@if ($errors->has('username'))
-						<span style="color: red;">{{ array_first($errors->get('username')) }}</span>
-						@endif
+						<h4 style="margin-left: 37%; color: red;">
+              @if(Session::has("name_club"))
+                {{Session::get("name_club")}}
+              @endif
+            </h4>
 
 						<div class="form-group">
-							<label class="control-label">FullName *</label>
-							<input class="form-control" type="text" placeholder=" Enter fullname" required name="fullname" value="">
+							<label class="control-label">Website *</label>
+							<input class="form-control" type="url" placeholder=" Enter link website" required name="link" value="" style="width: 28%;">
 						</div>
 
-						@if ($errors->has('fullname'))
-						<span style="color: red;">{{ array_first($errors->get('fullname')) }}</span>
-						@endif
-
-            <div class="form-group">
-              <label class="control-label">Address *</label>
-              <input class="form-control" type="text" placeholder="" required name="address" value="">
-            </div>
-
-            @if ($errors->has('address'))
-            <span style="color: red;">{{ array_first($errors->get('address')) }}</span>
-            @endif
-
+						<h4 style="margin-left: 37%; color: red;">
+              @if(Session::has("link"))
+                {{Session::get("link")}}
+              @endif
+            </h4>
             <div class="form-group">
               <label class="control-label">Email *</label>
-              <input class="form-control" type="email" placeholder=" Enter email" required name="email" value="">
+              <input class="form-control" type="email" placeholder=" Enter email" required name="email" value="" style="width: 28%;">
             </div>
 
             <h4 style="margin-left: 37%; color: red;">
@@ -69,33 +61,35 @@
             </h4>
 
             <div class="form-group">
-              <label class="control-label">Birthday *</label>
-              <input style="width: 28%;" class="form-control" type="date" required name="birthday" value="">
+              <label class="control-label">The club was founded  *</label>
+              <input style="width: 28%;" class="form-control" type="date" required name="date" value="">
             </div>
 
             <h4 style="margin-left: 37%; color: red;">
-              @if(Session::has("birthday"))
-                {{Session::get("birthday")}}
-              @endif
-            </h4>
-            <div class="form-group">
-              <label class="control-label">Position</label>
-              <select name="position">
-                <option value="1" >Referee</option>
-                <option value="2" >Linesman</option>
-                <option value="3" >Referee's assistant</option>
-              </select>
-            </div>
-
-            <h4 style="margin-left: 37%; color: red;">
-              @if(Session::has("position"))
-                {{Session::get("position")}}
+              @if(Session::has("date"))
+                {{Session::get("date")}}
               @endif
             </h4>
 
             <div class="form-group">
+              <label class="control-label">Picture club :  *</label>
+              <input class="form-control" type="file" name="hinhanh" style="width: 28%;"  >
+            </div>
+
+            <div class="form-group">
+              <label class="control-label">Address *</label>
+              <input class="form-control" type="text" placeholder="" required name="address" value="" style="width: 50%;">
+            </div>
+
+            <h4 style="margin-left: 37%; color: red;">
+              @if(Session::has("address"))
+                {{Session::get("address")}}
+              @endif
+            </h4>
+
+             <div class="form-group" style="width: 50%;">
               <label class="control-label">Detail *</label>
-              <textarea name="chitiet"  rows="7" cols="90" class="input-medium" style="width: 100%;" required ></textarea>
+              <textarea name="chitiet"  rows="7" cols="90" class="input-medium" style="width: 100%; border: 2px solid #ccc;" required ></textarea>
             </div>
 
             <h4 style="margin-left: 37%; color: red;">
@@ -103,15 +97,50 @@
                 {{Session::get("chitiet")}}
               @endif
             </h4>
+
+
             <div class="form-group">
-              <label class="control-label">Picture *</label>
-              <input class="form-control" type="file" name="hinhanh" style="width: 30%;"  >
+              <h3 class="card-title">Stadium</h3>
             </div>
+
+            <div class="form-group">
+              <label class="control-label">Name Stadium *</label>
+              <input type="text" name="name_stadium"  class="form-control border-input" placeholder="Enter name stadium" value="" required style="width: 28%;">
+            </div>
+
             <h4 style="margin-left: 37%; color: red;">
-              @if(Session::has("hinhanh"))
-                {{Session::get("hinhanh")}}
+              @if(Session::has("name_stadium"))
+                {{Session::get("name_stadium")}}
               @endif
             </h4>
+
+            <div class="form-group">
+              <label class="control-label">Total number :  *</label>
+              <input type="number" name="total_number"  class="form-control border-input" placeholder="Enter total number" value="" required style="width: 28%;">
+            </div>
+
+            <h4 style="margin-left: 37%; color: red;">
+              @if(Session::has("total_number"))
+                {{Session::get("total_number")}}
+              @endif
+            </h4>
+
+            <div class="form-group">
+              <label class="control-label">Picture stadium : *</label>
+              <input class="form-control" type="file" name="picutre_stadium" style="width: 28%;"  >
+            </div>
+
+            <div class="form-group" style="width: 50%;">
+              <label class="control-label">Detail *</label>
+              <textarea name="detail_stadium"  rows="7" cols="90" class="input-medium" style="width: 100%;border: 2px solid #ccc;" required ></textarea>
+            </div>
+
+            <h4 style="margin-left: 37%; color: red;">
+              @if(Session::has("detail_stadium"))
+                {{Session::get("detail_stadium")}}
+              @endif
+            </h4>
+
             <div class="card-footer">
              <button class="btn btn-primary icon-btn" name="smeditDM" type="submit"><i class="fa fa-fw fa-lg fa-check-circle"></i>Add</button>
            </div>
