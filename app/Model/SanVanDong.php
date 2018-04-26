@@ -15,9 +15,10 @@ class SanVanDong extends Model
         'chitiet',
         'hinhanh',
     ];
+    public $timestamps = false;
 
     public function doiBong()
     {
-    	return $this->hasOne('App\Model\DoiBong','sanvandong_id','id');
+        return $this->hasOne('App\Model\DoiBong', 'sanvandong_id', 'id');
     }
 }

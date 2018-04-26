@@ -106,52 +106,16 @@ class CauThuController extends Controller
                 $picture->move($path, $fileName);
 
                 $objUser->hinhanh = $fileName;
+            }
 
-                if ($objUser->update()) {
-                    $request->session()->flash('msg', 'Edit success');
+            if ($objUser->update()) {
+                $request->session()->flash('msg', 'Edit success');
 
-                    return redirect()->route('admin.player.index', $request->doibong);
-                } else {
-                    $request->session()->flash('msg', 'Edit failed');
-
-                    return redirect()->route('admin.player.getedit', $id);
-                }
+                return redirect()->route('admin.player.index', $request->doibong);
             } else {
+                $request->session()->flash('msg', 'Edit failed');
 
-                if ("" != $picture) {
-                    $path = "files/cauthu/";
-                    $fileName = str_random('10') . time() . '.' . $picture->getClientOriginalExtension();
-
-                    $picture->move($path, $fileName);
-
-                    $objUser->hinhanh = $fileName;
-
-                    //xóa ảnh cũ
-                    $oldPic = $objUser->hinhanh;
-                    if ("" != $oldPic) {
-                        unlink("files/cauthu/" . $oldPic);
-                    }
-
-                    if ($objUser->update()) {
-                        $request->session()->flash('msg', 'Edit success');
-
-                        return redirect()->route('admin.player.index', $request->doibong);
-                    } else {
-                        $request->session()->flash('msg', 'Edit failed');
-
-                        return redirect()->route('admin.player.getedit', $id);
-                    }
-                } else {
-                    if ($objUser->update()) {
-                        $request->session()->flash('msg', 'Edit success');
-
-                        return redirect()->route('admin.player.index', $request->doibong);
-                    } else {
-                        $request->session()->flash('msg', 'Edit failed');
-
-                        return redirect()->route('admin.player.getedit', $id);
-                    }
-                }
+                return redirect()->route('admin.player.getedit', $id);
             }
         }
 

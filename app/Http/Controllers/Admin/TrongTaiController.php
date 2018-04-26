@@ -116,17 +116,21 @@ class TrongTaiController extends Controller
 
                     if ($objUser->update()) {
                         $request->session()->flash('msg', 'Edit success');
+
                         return redirect()->route('admin.referee.index');
                     } else {
                         $request->session()->flash('msg', 'Edit failed');
+
                         return redirect()->route('admin.referee.getedit', $id);
                     }
                 } else {
                     if ($objUser->update()) {
                         $request->session()->flash('msg', 'Edit success');
+
                         return redirect()->route('admin.referee.index');
                     } else {
                         $request->session()->flash('msg', 'Edit failed');
+
                         return redirect()->route('admin.referee.getedit', $id);
                     }
                 }
@@ -135,9 +139,11 @@ class TrongTaiController extends Controller
 
         if ($objUser->update()) {
             $request->session()->flash('msg', 'Edit success');
+
             return redirect()->route('admin.referee.index');
         } else {
             $request->session()->flash('msg', 'Edit failed');
+
             return redirect()->route('admin.referee.getedit', $id);
         }
     }
@@ -154,12 +160,14 @@ class TrongTaiController extends Controller
 
         if (null != $check) {
             $request->session()->flash('email', 'This email has already existed !');
+
             return redirect()->route('admin.referee.getadd');
         } else {
             $picture = $request->hinhanh;
 
             if ("" == $picture) {
                 $request->session()->flash('msg', 'Please choose images');
+
                 return redirect()->route('admin.referee.getadd');
                 die();
             }
@@ -182,9 +190,11 @@ class TrongTaiController extends Controller
 
             if (TrongTai::insert($arrItem)) {
                 $request->session()->flash('msg', 'Add success');
+
                 return redirect()->route('admin.referee.index');
             } else {
                 $request->session()->flash('msg', 'Add failed');
+
                 return redirect()->route('admin.referee.index');
             }
         }

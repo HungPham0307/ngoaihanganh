@@ -18,6 +18,8 @@ class MuaGiai extends Model
         'chitiet',
     ];
 
+    public $timestamps = false;
+
     public function sanvandong()
     {
         return $this->belongsTo('App\Model\SanVanDong', 'sanvandong_id', 'id');
