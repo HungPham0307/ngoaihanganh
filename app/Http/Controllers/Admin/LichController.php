@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Admin\SapXepController;
 use App\Http\Controllers\Controller;
+use App\Model\CapDau;
 use App\Model\DoiBong;
+use App\Model\KetQua;
 use App\Model\MuaGiai;
 use App\Model\SanVanDong;
 use Carbon\Carbon;
@@ -81,6 +83,8 @@ class LichController extends Controller
 
         $matches = $this->sapxep->setDates($matches, $date);
         MuaGiai::truncate();
+        KetQua::truncate();
+        CapDau::truncate();
         DB::table('muagiai')->insert($matches);
 
         return redirect()->route('admin.calendar.show');

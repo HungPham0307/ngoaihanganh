@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Model\DoiBong;
 use App\Model\SanVanDong;
+use Carbon\Carbon;
 use DB;
 use Illuminate\Http\Request;
 
@@ -106,10 +107,9 @@ class DoiBongController extends Controller
             $club->email = $email;
             $club->name = $name;
             $club->diachi = $request->address;
-            $club->ngaythanhlap = $request->birthday;
-
+            $club->ngaythanhlap = Carbon::parse($request->birthday)->format('Y-m-d');
             $picture_club = $request->hinhanh;
-            $picture_stadium = $request->picutre_stadium;
+            $picture_stadium = $request->picture_stadium;
 
             $stadium = SanVanDong::findOrFail($club->sanvandong_id);
 
@@ -128,7 +128,7 @@ class DoiBongController extends Controller
 
                 //giao diện có hiện thị ra checkbox nhưng k chọn thì vẫn k tồn tại
                 if ("" == $picture_stadium) {
-                    $request->session()->flash('picutre_stadium', 'Please choose images');
+                    $request->session()->flash('picture_stadium', 'Please choose images');
 
                     return redirect()->route('admin.football.getedit', $id);
                     die();
@@ -198,7 +198,7 @@ class DoiBongController extends Controller
             $request->session()->flash('email', 'This email has already existed !');
             return redirect()->route('admin.football.getadd');
         } else {
-            $picture_stadium = $request->picutre_stadium;
+            $picture_stadium = $request->picture_stadium;
             $picture_club = $request->hinhanh;
 
             if ("" == $picture_club || "" == $picture_stadium) {

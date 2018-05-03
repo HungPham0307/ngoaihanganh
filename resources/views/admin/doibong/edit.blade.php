@@ -152,11 +152,11 @@
             @endif
             <div class="form-group">
               <label class="control-label">Change Picture *</label>
-              <input class="form-control" type="file" name="picutre_stadium" style="width: 30%;"  >
+              <input class="form-control" type="file" name="picture_stadium" style="width: 30%;"  >
             </div>
             <h4 style="margin-left: 37%; color: red;">
-              @if(Session::has("picutre_stadium"))
-                {{Session::get("picutre_stadium")}}
+              @if(Session::has("picture_stadium"))
+                {{Session::get("picture_stadium")}}
               @endif
             </h4>
 

@@ -127,7 +127,7 @@
 
             <div class="form-group">
               <label class="control-label">Picture stadium : *</label>
-              <input class="form-control" type="file" name="picutre_stadium" style="width: 28%;"  >
+              <input class="form-control" type="file" name="picture_stadium" style="width: 28%;"  >
             </div>
 
             <div class="form-group" style="width: 50%;">
