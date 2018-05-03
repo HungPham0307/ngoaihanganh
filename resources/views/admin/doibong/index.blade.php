@@ -65,7 +65,7 @@
                     <td style="text-align: center;vertical-align: middle;" >{{$val->email}}</td>
                     <td style="text-align: center;vertical-align: middle;" ><a href="{{$val->website}}">{{$val->website}}</a></td>
                     <td style="text-align: center;vertical-align: middle;" >
-                      <img style="width: 200px;height: 150px;" src="/files/doibong/{{$val->hinhanh}}">
+                      <img style="width: 150px;height: 150px;" src="/files/doibong/{{$val->hinhanh}}">
                     </td>
                     @if(Session::has("name") &&
                     Session::get("name")=="admin" )

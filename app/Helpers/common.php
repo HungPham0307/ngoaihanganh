@@ -61,3 +61,12 @@ if (!function_exists('getNameClub')) {
         return $club->name;
     }
 }
+
+if (!function_exists('getImageClub')) {
+    function getImageClub($club_id)
+    {
+        $club = App\Model\DoiBong::where('id', $club_id)->first();
+
+        return $club->hinhanh;
+    }
+}

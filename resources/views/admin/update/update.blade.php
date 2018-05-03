@@ -82,6 +82,7 @@
             <thead>
               <tr>
                 <th style="text-align: center;" >Position</th>
+                <th style="text-align: center;" ></th>
                 <th style="text-align: center;" >Club</th>
                 <th style="text-align: center;" >Number Match</th>
                 <th style="text-align: center;" >Won</th>
@@ -97,7 +98,12 @@
               @foreach ($bxh as $key => $val)
               <tr>
                 <td style="text-align: center;" >{{$key+1}}</td>
-                <td style="text-align: center;" >{{getNameClub($val->doibong_id)}}</td>
+                <td>
+                  <img style="width: 20px;height: 20px;" src="/files/doibong/{{getImageClub($val->doibong_id)}}">
+                </td>
+                <td style="text-align: center;" >
+                  {{getNameClub($val->doibong_id)}}
+                </td>
                 <td style="text-align: center;">{{numberMatch($val->doibong_id)}}</td>
                 <td style="text-align: center;" >{{$val->thang}}</td>
                 <td style="text-align: center;" >{{$val->hoa}}</td>
