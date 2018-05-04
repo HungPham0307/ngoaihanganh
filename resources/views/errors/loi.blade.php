@@ -16,8 +16,8 @@
   <body>
     <div class="page-error">
       <h3><img src="{{ $imgUrl }}/errors/errors.jpg" style="width: 40px;height: 40px;"/> Bạn k có quyền truy cấp chức năng này </h3>
-      
-      <p><a href="{{route('admin.index.index')}}">Quay về trang chủ</a></p>
+
+      <p><a href="{{route('admin.public.index')}}">Quay về trang chủ</a></p>
     </div>
   </body>
   <script src="{{ $adminUrl }}/js/jquery-2.1.4.min.js"></script>

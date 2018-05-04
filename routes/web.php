@@ -12,11 +12,11 @@
  */
 Route::pattern("slug", "(.*)");
 Route::pattern("id", "([0-9]*)");
-/*
+
 Route::get('/', function () {
-return view('welcome');
+    return redirect()->route('admin.public.index');
 });
- */
+
 //login
 
 Route::group(['namespace' => 'Auth', 'prefix' => 'admin'], function () {
@@ -62,6 +62,14 @@ Route::group(['namespace' => 'Auth', 'prefix' => 'admin'], function () {
 
 });
 
+// public
+
+Route::group(['prefix' => 'index', 'namespace' => 'Premier'], function () {
+    Route::get('/', [
+        'uses' => 'PublicController@index',
+        'as' => 'admin.public.index',
+    ]);
+});
 //admin
 
 Route::group(['namespace' => "Admin", 'prefix' => 'admin', 'middleware' => 'auth'], function () {
