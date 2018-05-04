@@ -12,12 +12,12 @@
     script(src='https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js')
     script(src='https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js')
     -->
-  </head> 
+  </head>
   <body>
     <div class="page-error">
       <h1><img src="{{ $imgUrl }}/errors/errors.jpg" style="width: 40px;height: 40px;"/> Error 404</h1>
       <p>Không tìm thấy trang bạn yêu cầu</p>
-      <p><a href="{{route('admin.index.index')}}">Quay về trang chủ</a></p>
+      <p><a href="{{route('admin.public.index')}}">Quay về trang chủ</a></p>
     </div>
   </body>
   <script src='{!!asset("templates/admin/js/jquery-2.1.4.min.js")!!}'></script>
