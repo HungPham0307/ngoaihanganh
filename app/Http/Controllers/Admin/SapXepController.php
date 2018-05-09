@@ -97,7 +97,7 @@ class SapXepController extends Controller
         $vongdau = 1;
         $count = 0;
 
-        if ($this->isWeekend($date) == 0) {
+        if (isWeekend($date) == 0) {
             $match = rand(3, 7);
 
             for ($i = 0; $i < $match; $i++) {
@@ -119,7 +119,7 @@ class SapXepController extends Controller
             $sum = $sum - 10;
         }
 
-        if ($this->isWeekend($startingDate) == 1) {
+        if (isWeekend($startingDate) == 1) {
             for ($i = 0; $i < 10; $i++) {
                 $schedule[$count]['date'] = $date->format('Y-m-d');
                 $schedule[$count]['time'] = Carbon::parse($this->rand_time());
@@ -132,7 +132,7 @@ class SapXepController extends Controller
         while ($sum > 0) {
             $date = Carbon::parse($date)->addDay();
 
-            if ($this->isWeekend($date) == 0) {
+            if (isWeekend($date) == 0) {
                 $vongdau++;
                 $match = rand(3, 7);
 
@@ -157,19 +157,6 @@ class SapXepController extends Controller
         }
 
         return $schedule;
-    }
-
-    public function isWeekend($date)
-    {
-        if ((date('N', strtotime($date)) == 6)) {
-            return 0;
-        }
-
-        if ((date('N', strtotime($date)) == 7)) {
-            return 1;
-        }
-
-        return 2;
     }
 
     public function rand_time()

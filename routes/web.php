@@ -70,6 +70,7 @@ Route::group(['prefix' => 'index', 'namespace' => 'Premier'], function () {
         'as' => 'admin.public.index',
     ]);
 });
+
 //admin
 
 Route::group(['namespace' => "Admin", 'prefix' => 'admin', 'middleware' => 'auth'], function () {

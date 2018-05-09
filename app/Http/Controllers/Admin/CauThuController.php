@@ -71,7 +71,7 @@ class CauThuController extends Controller
 
             $objUser->chitiet = $request->chitiet;
             $objUser->vitri_id = $request->position;
-            $objUser->ngaysinh = $request->brithday;
+            $objUser->ngaysinh = $request->birthday;
             $objUser->email = $request->email;
             $objUser->name = $request->username;
             $objUser->fullname = $request->fullname;

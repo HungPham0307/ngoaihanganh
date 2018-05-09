@@ -118,7 +118,7 @@
                     <li class="first pkg">
                       <a data-vr-contentbox="position 1" href="http://www.bongda.com.vn/bao-italia-muon-co-sao-manchester-united-juventus-phai-chi-it-nhat-50-trieu-euro-d443878.html" class="thumbblock thumb140x90 fl" title="Báo Italia: Muốn có sao Manchester United, Juventus phải chi ít nhất 50 triệu euro" ><img class="" src="http://media.bongda.com.vn/resize/140x90/files/news/2018/05/04/bao-italia-muon-co-sao-manchester-united-juventus-phai-chi-it-nhat-50-trieu-euro-013244.jpg" width="140" height="90" alt="Báo Italia: Muốn có sao Manchester United, Juventus phải chi ít nhất 50 triệu euro" /></a>
                       <h2>
-                        <a data-vr-contentbox="position 1_title" href="http://www.bongda.com.vn/bao-italia-muon-co-sao-manchester-united-juventus-phai-chi-it-nhat-50-trieu-euro-d443878.html" class="f18" title="Báo Italia: Muốn có sao Manchester United, Juventus phải chi ít nhất 50 triệu euro">
+                        <a data-vr-contentbox="position 1_title" href="http://www.bongda.com.vn/bao-italia-muon-co-sao-manchester-united-juventus-phai-chi-it-nhat-50-trieu-euro-d443878.html" class="f18" >
                           Báo Italia: Muốn có sao Manchester United, Juventus phải chi ít nhất 50 triệu euro
                         </a>
                       </h2>
@@ -170,28 +170,64 @@
             <aside>
             <div class="head_news"><a onclick="return false">Lich thi dau</a></div>
             <div class="300_box_right wrap-all lichthidau_box_300">
-            <table class="table-wrap" cellpadding="0" cellspacing="0">
-              <tr><td class="title" colspan="8"><select class="league_selector"><option value="1">Premier League</option></select><span>LỊCH THI ĐẤU</span></td></tr>
-            </table>
-
-            <div class="scrollbar ld_1 show_ld hidden" id="style-default">
-              <table class="ld_1 show_ld hidden">
-                <tr>
-                  <td colspan="8" class="tour_title" style="font-weight: bold;font-size: 13px;text-align:center;">Premier League</td>
-                </tr>
-                <tr>
-                  <td class="datetime" colspan="4"><p>05/05/2018</p></td>
-                </tr>
-                <tr class="detail">
-                  <td class="first-team detail">Brighton & Hove Albion</td>
-                  <td class="score detail">-</td>
-                  <td class="second-team detail">Manchester United</td>
-                  <td class="time detail">02:00</td>
-                </tr>
+              <table class="table-wrap" cellpadding="0" cellspacing="0">
+                <tr><td class="title" colspan="8"><select class="league_selector"><option value="1">Premier League</option></select><span>LỊCH THI ĐẤU</span></td></tr>
               </table>
+
+              <div class="scrollbar ld_1 show_ld hidden" id="style-default">
+                <table class="ld_1 show_ld hidden">
+                  <tr>
+                    <td colspan="8" class="tour_title" style="font-weight: bold;font-size: 13px;text-align:center;">Premier League</td>
+                  </tr>
+                  @foreach ($matchs as $match)
+                  <tr class="detail">
+                    <td class="first-team detail"> <img style="width: 20px;height: 20px;" src="/files/doibong/{{ getImageClub($match->doinha->id) }}">  {{ $match->doinha->name }}</td>
+                    <td class="score detail">-</td>
+                    <td class="second-team detail"><img style="width: 20px;height: 20px;" src="/files/doibong/{{ getImageClub($match->doikhach->id) }}"> {{ $match->doikhach->name }}</td>
+                    <td class="time detail">{{ Carbon\Carbon::parse($match->time)->format('H:i')}} PM</td>
+                    <td class="datetime" colspan="4"><p>{{$match->date}}</p></td>
+                  </tr>
+                  @endforeach
+                </table>
+              </div>
             </div>
+
+            <div class="300_box_right wrap-all league_table_block_300">
+              <table class="table-wrap" cellpadding="0" cellspacing="0">
+                <tr>
+                  <td class="title" colspan="8">
+                    <select class="league_select">
+                      <option value="1">Premier League</option>
+                    </select>
+                    <span>BẢNG XẾP HẠNG</span>
+                  </td>
+                </tr>
+                <tr class="codename details">
+                  <td class="stt firsts"></td>
+                  <td class="team-name firsts"></td>
+                  <td class="code-detail firsts">ST</td>
+                  <td class="code-detail firsts">T</td>
+                  <td class="code-detail firsts">H</td>
+                  <td class="code-detail firsts">B</td>
+                  <td class="hieuso firsts">HS</td>
+                  <td class="code-detail firsts">Đ</td>
+                </tr>
+                @foreach ($bxh as $key => $val)
+                  <tr class="details">
+                    <td class="stt">{{ $key+1 }}</td>
+                    <td class="team-name"><img style="width: 20px;height: 20px;" src="/files/doibong/{{ getImageClub($val->doibong_id) }}"> {{ getNameClub($val->doibong_id) }}</td>
+                    <td class="mark code-detail">{{ numberMatch($val->doibong_id) }}</td>
+                    <td class="code-detail">{{ $val->thang }}</td>
+                    <td class="code-detail">{{ $val->hoa }}</td>
+                    <td class="code-detail">{{ $val->thua }}</td>
+                    <td class="hieuso ">{{ $val->banthang }} - {{ $val->banthua }}</td>
+                    <td class="mark code-detail">{{ $val->tongso }}</td>
+                  </tr>
+                @endforeach
+                </table>
+              </div>
             </div>
-            <div class="box_right_300 fl" data-vr-zone="Tin đọc nhiều nhất" >
+            {{-- <div class="box_right_300 fl" data-vr-zone="Tin đọc nhiều nhất" >
               <div class="head_news"><a onclick="return false">Tin đọc nhiều nhất</a></div>
               <ul class="list_news_300 pkg">
                 <li class="first">
@@ -231,7 +267,7 @@
                   </div>
                 </li>
               </ul>
-            </div>
+            </div> --}}
             </aside>
           </div>
         </div>
