@@ -49,7 +49,7 @@
             @endif
 
             <div class="form-group">
-              <label class="control-label">Address *</label>
+              <label class="control-label">Nationality *</label>
               <input class="form-control" type="text" placeholder="" required name="address" value="">
             </div>
 

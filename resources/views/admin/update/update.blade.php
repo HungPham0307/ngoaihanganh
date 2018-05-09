@@ -97,21 +97,21 @@
             <tbody>
               @foreach ($bxh as $key => $val)
               <tr>
-                <td style="text-align: center;" >{{$key+1}}</td>
+                <td style="text-align: center;" >{{ $key+1 }}</td>
                 <td>
-                  <img style="width: 20px;height: 20px;" src="/files/doibong/{{getImageClub($val->doibong_id)}}">
+                  <img style="width: 20px;height: 20px;" src="/files/doibong/{{ getImageClub($val->doibong_id) }}">
                 </td>
                 <td style="text-align: center;" >
-                  {{getNameClub($val->doibong_id)}}
+                  {{ getNameClub($val->doibong_id) }}
                 </td>
-                <td style="text-align: center;">{{numberMatch($val->doibong_id)}}</td>
-                <td style="text-align: center;" >{{$val->thang}}</td>
-                <td style="text-align: center;" >{{$val->hoa}}</td>
-                <td style="text-align: center;" >{{$val->thua}}</td>
-                <td style="text-align: center;" >{{$val->banthang}}</td>
-                <td style="text-align: center;" >{{$val->banthua}}</td>
-                <td style="text-align: center;" >{{$val->hieuso}}</td>
-                <td style="text-align: center;" >{{$val->tongso}}</td>
+                <td style="text-align: center;">{{ numberMatch($val->doibong_id) }}</td>
+                <td style="text-align: center;" >{{ $val->thang }}</td>
+                <td style="text-align: center;" >{{ $val->hoa }}</td>
+                <td style="text-align: center;" >{{ $val->thua }}</td>
+                <td style="text-align: center;" >{{ $val->banthang }}</td>
+                <td style="text-align: center;" >{{ $val->banthua }}</td>
+                <td style="text-align: center;" >{{ $val->hieuso }}</td>
+                <td style="text-align: center;" >{{ $val->tongso }}</td>
               </tr>
               @endforeach
             </tbody>

@@ -70,3 +70,17 @@ if (!function_exists('getImageClub')) {
         return $club->hinhanh;
     }
 }
+if (!function_exists('isWeekend')) {
+    function isWeekend($date)
+    {
+        if ((date('N', strtotime($date)) == 6)) {
+            return 0;
+        }
+
+        if ((date('N', strtotime($date)) == 7)) {
+            return 1;
+        }
+
+        return 2;
+    }
+}

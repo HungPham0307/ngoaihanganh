@@ -50,7 +50,7 @@
             @endif
 
             <div class="form-group">
-              <label class="control-label">Address *</label>
+              <label class="control-label">Nationality *</label>
               <input class="form-control" type="text" placeholder="" required name="address" value="{{$cauThu->diachi}}">
             </div>
 
@@ -91,7 +91,7 @@
             </h4>
 
             <div class="form-group">
-              <label class="control-label" style="margin-right: 50px;">Position</label>
+              <label class="control-label" style="margin-right: 67px;">Team </label>
               <select name="doibong" style="width: 148px;">
                 @foreach ($doiBong as $key=>$val)
                 <option value="{{ $val->id }}"  {{ ($cauThu->doibong_id == $val->id) ? 'selected' : ''}} >{{ $val->name}}</option>

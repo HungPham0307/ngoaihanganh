@@ -29,7 +29,7 @@ class LichController extends Controller
 
     public function run(Request $request)
     {
-        if ($this->sapxep->isWeekend($request->date) == 2) {
+        if (isWeekend($request->date) == 2) {
             $request->session()->flash('msg', 'Please choose date of weekend !');
 
             return redirect()->route('admin.calendar.index');
